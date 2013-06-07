@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Firstblog</title>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+</head>
+<body class="post">
+<div class='head'>
+  <div class="logo">Salut, Rubist!</div>
+  <div class="box_regisrt">
+    <!--block for registr user-->
+  </div>
+</div>
+<div class='container' id="border">
+
+  <div class="span10">
+    <%= yield %>
+  </div>
+  <div class="span1" id="width_span1">
+
+    <h3>Item tags</h3>
+    <% @tags.each do |tag| %>
+    <ul>
+        <li><%= tag.name %></li>
+    </ul>
+    <% end %>
+  </div>
+
+</div>
+<div class='footer fbox'>
+  MegaBlog 2013
+</div>
+</body>
+</html>

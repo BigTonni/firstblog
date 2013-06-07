@@ -1,0 +1,51 @@
+<% @post.tags.build if @post.tags.empty? %>
+<%= form_for(@post) do |post_form| %>
+    <% if @post.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@post.errors.count, "error") %> prohibited this post from being saved:</h2>
+
+          <ul>
+            <% @post.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <div class="field">
+      <%= post_form.label :title %><br />
+      <%= post_form.text_field :title %>
+    </div>
+    <div class="field">
+      <%= post_form.label :body %><br />
+      <%= post_form.text_area :body %>
+    </div>
+    <div class="field date_select">
+      <%= post_form.label :data %><br />
+      <%= post_form.datetime_select :data %>
+    </div>
+    <h2>Tags</h2>
+    <div id="tag-list"></div>
+
+    <!--% post_form.fields_for :tags, @post.tags.empty? ? Tag.new : @post.tags do |tag_form| %>
+
+          <#%= tag_form.label :name, 'Tag:' %>
+          <#%= tag_form.text_field :name %>
+          <#%= render :partial => 'tags/form', :locals => {:form => post_form} %>
+
+    <#% end %-->
+    <div class="numerous">
+      <div class="fields-for-tags">
+        <%= post_form.fields_for :tags, @post.tags.empty? ? Tag.new : @post.tags do |f| %>
+            <%= f.text_field :name, :class => 'tag-name' %>
+            <%= link_to "Delete", "#", :class => "numerous-remove btn btn-danger" %>
+        <% end %>
+      </div>
+
+    </div>
+    <br/>
+
+    <%= post_form.submit class: 'btn' %>
+
+<% end %>
+<%= button_tag "Add tag", :class => "btn btn-success", :id => "add-to-tags", onclick: 'add_tag_form()' %>
