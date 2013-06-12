@@ -1,36 +1,38 @@
 <p id="notice"><%= notice %></p>
-
-<div class="field_post">
-  <div class='title_post'>
-    <%= @post.title %>&nbsp;(created&nbsp;<%= time_ago_in_words @post.created_at %> ago)&nbsp;
-    <b>Author:</b>
-  </div>
-  <div class='body_post'>
-    <%= truncate(@post.body, :length =>100) %>
+<div class="create_post">
+  <div>
+    <span><%= @post.title %></span> (<%= @post.data %>)
   </div>
   <p>
-    <b>Tags:</b>
-    <%= join_tags(@post) %>
+    <%= @post.body %>
   </p>
-  <div class='count_comment'>Count comment: </div>
+  <p><b>Tags:</b>
+    <%= join_tags(@post) %></p>
 </div>
 
-<h2>Comments</h2>
-<% @post.comments.each do |comment| %>
-    <b>Date of comment:</b>
-    <%= time_ago_in_words comment.created_at %>&nbsp;ago
-    <b>Commenter:</b>
-    <%= comment.commenter %>
-    <%# if comment.user_id == current_user.id %>
-    <%= link_to 'Delete comment', [@post, comment], :method => :delete, :confirm => 'Are you sure?', :class => "btn btn-danger" %>
-    <%#end%>
-    <div class='comment_body'><%= comment.body %></div>
-    <br/>
-<% end %>
- 
+<h2 class="comments">Comments</h2>
+
+<div class="create_post">
+  <% @post.comments.each do |comment| %>
+      <b>Date of comment:</b>
+      <%= time_ago_in_words comment.created_at %>&nbsp;ago
+      <b>Commenter:</b>
+      <%= comment.commenter %>
+      <% if comment.user_id == current_user.try(:id) %>
+          <%= link_to 'Delete comment', [@post, comment], :method => :delete, :confirm => 'Are you sure?', :class => "btn btn-danger" %>
+      <%end%>
+      <div class='comment_body'><%= comment.body %></div>
+      <br/>
+  <% end %>
+</div>
+
+<hr/>
+
 <h2>Add a comment:</h2>
 <%= render "comments/form" %>
-<br/>
 
-<%= link_to 'Edit', edit_post_path(@post) %> |
-<%= link_to 'Back', posts_path %>
+<% if @post.user_id == current_user.try(:id) %>
+    <%= link_to 'Edit', edit_post_path(@post), {:class => "btn" } %> |
+    <%= link_to 'Delete', @post, :method => :delete, confirm: 'Are you sure?', :class => "btn"  %> |
+<% end %>
+<%= link_to 'Back', posts_path, {:class => "btn" } %>

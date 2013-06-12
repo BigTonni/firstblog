@@ -1,0 +1,37 @@
+!!!
+%html
+  %head
+    %title Firstblog
+    = stylesheet_link_tag    "application", :media => "all"
+    = javascript_include_tag "application"
+    = csrf_meta_tags
+  %body.post
+    .head
+      .logo Salut, Rubist!
+      .box_regisrt
+        - if user_signed_in?
+          = link_to "My post",  ban_path, {:class =>'btn btn-success'}
+          = link_to "Home", posts_path, {:class => 'btn'}
+          Signed in as #{current_user.email}.
+          \#{link_to "Sign out", destroy_user_session_path, :method => :delete, :class =>'btn'}
+        - else
+          = link_to "Sign up", new_user_registration_path, {:class =>'btn'}
+          or #{link_to "Sign in", new_user_session_path, {:class =>'btn'}}
+    #border.container
+      .span10.border_right
+        = yield
+      #width_span1.span1
+        %h4 Item 8 titles of posts
+        -# @posts.limit(10).order("created_at DESC").each do |post|
+          = link_to post.title, post_path(:id=>post.id)
+          %br/
+        %br/
+        %img{:alt => "Rubist", :src => "/assets/ninja.jpg"}/
+        - if user_signed_in?
+          %h4 Item tags
+          .item_tag
+            %ul
+              - @tags.each do |tag|
+                %li= link_to tag.name, posts_path(:tag_name =>tag.name)
+    .footer.fbox
+      MegaBlog 2013

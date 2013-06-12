@@ -28,6 +28,9 @@ html, body {
 }
 
 //***********CONTENT**************
+.border_right{
+  border-right: 1px solid #CCC;
+}
 #border{
   background: #FFDAB9;
   padding: 10px;
@@ -40,14 +43,26 @@ html, body {
 .title_post{
   text-align: left;
 }
+.title_post span{
+  font-weight: bold;
+}
 .field_post{
   margin-bottom: 10px;
+  margin-right: 10px;
 }
 .body_post{
   border: 1px solid #ccc;
   border-radius: 8px 8px 8px 8px;
   background-color:#fff;
   padding: 5px 10px;
+}
+.body_post a.link_post{
+  text-decoration: none;
+}
+.body_post a.link_post:hover{
+  background-color: #FFFFFF;
+  color: #000;
+  text-decoration: none;
 }
 .count_comment{
   font: bold 13px verdana,arial,helvetica,sans-serif;
@@ -103,6 +118,20 @@ div.field input {
 .create_post a{
   float: right;
 }
+.date_select select{
+  width: 130px;
+}
+
+//***********Sidebar*************
+#width_span1{
+  width: 110px;
+}
+.item_tag{
+  text-align: left;
+}
+.item_tag ul{
+  list-style-image: url(/assets/35.png);
+}
 .span1 img{
   padding: 4px;
   background-color: #fff;
@@ -112,13 +141,6 @@ div.field input {
   -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
-#width_span1{
-  width: 110px;
-}
-.date_select select{
-  width: 130px;
-}
-
 
 //***********FOOTER*************
 .fbox {

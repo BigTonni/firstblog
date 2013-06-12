@@ -1,0 +1,25 @@
+%h3 Do not approved by the administrator thanked posts.
+- @posts.each do |post|
+  .field_post
+    .title_post
+      %span>=post.title
+      \ (created #{time_ago_in_words post.created_at} ago)
+    .body_post
+      = truncate(post.body, :length =>100, :omission => '...')
+      = link_to post, :title=>'Read more', :class=> 'link_post' do
+        Read more
+    .count_comment
+      %img{:src => "/assets/17.png"}>/
+      Count comment: #{post.comments_counter}
+      Tags:
+      -post.tags.each do |post_tag|
+        -if !post_tag.name.blank?
+          %span{:class=>""}
+          =link_to post_tag.name, posts_path(:tag_name => post_tag.name)
+    %hr/
+
+    =link_to 'Show', post, class: "btn"
+    -if !current_user.nil?
+      - if current_user.id == post.user_id
+        =link_to 'Edit', edit_post_path(post), class: "btn"
+        =link_to 'Delete', post, class: "btn", data: {confirm: 'Are you sure?'}, name: post.id

@@ -1,5 +1,10 @@
 Firstblog::Application.routes.draw do
-  resources :posts
+  devise_for :admin_users, ActiveAdmin::Devise.config
+  root :to => "posts#index"
+  get 'posts/ban'
+
+  ActiveAdmin.routes(self)
+  devise_for :users
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
@@ -57,9 +62,18 @@ Firstblog::Application.routes.draw do
   # This is a legacy wild controller route that's not recommended for RESTful applications.
   # Note: This route will make all actions in every controller accessible via GET requests.
   # match ':controller(/:action(/:id))(.:format)'
-resources :posts do
+
+  resources :posts do
+    #collection do
+    #get :user_posts     ###old method, rename on ban
+    #end
+
     resources :comments
-end
-  root :to => "posts#index"
+    resources :tags
+    get 'page/:page', :action => :index, :on => :collection
+  end
+
+  match 'posts/ban/' =>'posts#banToApprove', :as=> :ban
+  match 'posts/count/' =>'posts#count'
 
 end

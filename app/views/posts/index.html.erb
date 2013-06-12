@@ -1,27 +1,27 @@
 <h1 class="header_post">List of all posts on this site</h1>
-
-<table>
-  <tr>
-    <th>Title</th>
-    <th>Body</th>
-    <th>Data</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+<div class='pagination'>
+  <%= paginate @posts, :window => 1 %>
+</div>
 
 <% @posts.each do |post| %>
-  <tr>
-    <td><%= post.title %></td>
-    <td><%= post.body %></td>
-    <td><%= post.data %></td>
-    <td><%= link_to 'Show', post %></td>
-    <td><%= link_to 'Edit', edit_post_path(post) %></td>
-    <td><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
+    <div class="field_post">
+      <div class='title_post'>
+        <span><%= post.title %></span>&nbsp;(created&nbsp;<%= time_ago_in_words post.created_at %> ago)&nbsp;
+
+      </div>
+      <div class='body_post'>
+        <%= truncate(post.body, :length =>100, :omission => '...') %>
+        <%= link_to post, :title=>'Read more', :class=> 'link_post' do %>
+            Read more
+        <% end %>
+      </div>
+      <div class='count_comment'>
+        <img src='/assets/17.png' />Count comment: <%= post.comments_counter %>&nbsp;
+        Tags: <%= join_tags(post) %>
+      </div>
+    </div>
 <% end %>
-</table>
 
 <br />
 
-<%= link_to 'New Post', new_post_path %>
+<%= link_to 'New Post', new_post_path, {:class => "btn" } %>

@@ -1,12 +1,9 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
-  def index
-    @tags = Tag.all
+  before_filter :find_all_tags, :except => [:create]
 
-    respond_to do |format|
-      format.html
-      format.json { render json: @tags }
-    end
+  def find_all_tags
+    @tags = Tag.all
   end
 end

@@ -26,19 +26,10 @@
     </div>
     <h2>Tags</h2>
     <div id="tag-list"></div>
-
-    <!--% post_form.fields_for :tags, @post.tags.empty? ? Tag.new : @post.tags do |tag_form| %>
-
-          <#%= tag_form.label :name, 'Tag:' %>
-          <#%= tag_form.text_field :name %>
-          <#%= render :partial => 'tags/form', :locals => {:form => post_form} %>
-
-    <#% end %-->
     <div class="numerous">
       <div class="fields-for-tags">
         <%= post_form.fields_for :tags, @post.tags.empty? ? Tag.new : @post.tags do |f| %>
             <%= f.text_field :name, :class => 'tag-name' %>
-            <%= link_to "Delete", "#", :class => "numerous-remove btn btn-danger" %>
         <% end %>
       </div>
 
@@ -48,4 +39,5 @@
     <%= post_form.submit class: 'btn' %>
 
 <% end %>
-<%= button_tag "Add tag", :class => "btn btn-success", :id => "add-to-tags", onclick: 'add_tag_form()' %>
+<%= button_tag "Add tag", :class => "btn btn-success", :id => "add_to_tags", onclick: 'add_tag_form()' %>
+<%= button_tag "Delete tag", :class => "numerous-remove btn btn-danger", onclick: 'remove_tag_form()' %>

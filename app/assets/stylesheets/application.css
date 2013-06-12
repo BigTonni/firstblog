@@ -11,9 +11,3 @@
  *= require_self
  *= require_tree .
  */
-.header_post{
-	color: green;
-}
-tr:nth-child(even){
-	color:blue;
-}
